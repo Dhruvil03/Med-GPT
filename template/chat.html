@@ -1,0 +1,184 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fancy ChatGPT UI</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="chat-window">
+    <div class="chat-header">Medical GPT</div>
+    <div class="chat-body" id="chatContainer"></div>
+    <form id="chatForm" class="chat-footer">
+      <input type="text" id="userInput" placeholder="Ask me anything..." autocomplete="off"/>
+      <button type="submit">➤</button>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DocGPT - Ask any question related to your ailment</title>
+
+  <!-- Bootstrap 5 only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon and Custom Styles -->
+  <link rel="shortcut icon" href="static/Image/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="static/css/style.css" />
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="navleft">
+      <div class="navimage">
+        <img src="static/Image/bot_image.png" alt="Bot Logo">
+      </div>
+      <a href="/">
+        <h3>Med-GPT</h3>
+      </a>
+    </div>
+
+    <div class="dropdown">
+      <button onclick="myFunction()" class="dropbtn">current_database</button>
+      <div id="myDropdown" class="dropdown-content">
+        <!-- <a href="/database/MedicalDB">MedicalDB</a>
+        <a href="/database/HealthTips">HealthTips</a>
+        <a href="/database/General">General</a> -->
+      </div>
+    </div>
+
+    <div class="navright">
+      <div class="user">
+        <img src="static/Image/icons/user.svg" alt="User Icon">
+        <h3>Username123</h3>
+      </div>
+      <button id="createbtn">Create <img src="static/Image/icons/plus-svgrepo-com.svg" alt=""></button>
+      <button id="logoutbtn" onclick="window.location='/logout'">Logout <img src="static/Image/icons/logout-svgrepo-com.svg" alt=""></button>
+    </div>
+  </nav>
+
+  <div class="content">
+    <!-- Left Sidebar for Conversations -->
+    <div class="convoboard">
+      <div class="new_convo">
+        <button id="newConvo"><h2>New chat +</h2></button>
+      </div>
+      <!-- <div class="convos">
+        <div class="conversation" id="convo1"><h4>Migraine Remedies</h4></div>
+        <div class="conversation" id="convo2"><h4>Allergy Help</h4></div>
+      </div> -->
+    </div>
+
+    <!-- Chat UI -->
+    <div class="--dark-theme" id="chat">
+      <div class="chat__conversation-board">
+
+        <!-- Initial Welcome Message -->
+        <div class="inital">
+          <div class="top">
+            <div class="image">
+              <img src="static/Image/bot_image.png" alt="Bot">
+            </div>
+            <div class="welcome">
+              <h4>Welcome to Med-GPT!!<br>How can I help you today?</h4>
+            </div>
+          </div>
+
+          <form id="suggestform" class="inp_form_1">
+            <input type="text" id="inputText" class="finput" placeholder="Type a question...">
+            <div class="bottom">
+              <div class="first">
+                <div class="left">
+                  <div class="heading">Get remedies of your ailment</div>
+                  <div class="example">Can you suggest ways to relieve migraine headaches?</div>
+                </div>
+                <div class="right">
+                  <div class="heading">Diagnose your ailment</div>
+                  <div class="example">I am feeling pain in my throat, diagnose my disease.</div>
+                </div>
+              </div>
+              <div class="second">
+                <div class="left">
+                  <div class="heading">Know symptoms of any disease</div>
+                  <div class="example">Can you explain the symptoms of an allergic reaction?</div>
+                </div>
+                <div class="right">
+                  <div class="heading">Ask general questions too</div>
+                  <div class="example">How can I differentiate between a migraine and a tension headache?</div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Example chat messages -->
+        <div class="chat__conversation-board__message-container reversed" style="margin: 16px 0;">
+          <div class="chat__conversation-board__message__person">
+            <div class="chat__conversation-board__message__person__avatar"></div>
+            <span class="chat__conversation-board__message__person__nickname">Me</span>
+          </div>
+          <div class="chat__conversation-board__message__context">
+            <div class="chat__conversation-board__message__bubble">
+              <h4 class="chat_message">What are natural remedies for headaches?</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat__conversation-board__message-container">
+          <div class="chat__conversation-board__message__person">
+            <div class="chat__conversation-board__message__person__avatar"><img src="static/Image/bot_image.png" alt="Bot"></div>
+            <span class="chat__conversation-board__message__person__nickname">Bot</span>
+          </div>
+          <div class="chat__conversation-board__message__context">
+            <div class="chat__conversation-board__message__bubble">
+              <h4>Try resting in a dark room, staying hydrated, and using peppermint oil on your temples.</h4>
+            </div>
+          </div>
+          <div class="speakBtn_div">
+            <button type="button" id="speakBtn"><img src="static/Image/icons/speakBtn.svg" alt="Speak"></button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Chat Input Panel -->
+      <div class="chat__conversation-panel">
+        <div class="chat__conversation-panel__container">
+          <form class="inp_form">
+            <button id="Button_for_recording" type="button">
+              <img src="static/Image/icons/micBtn.svg" id="micBtn" alt="Mic">
+              <img src="static/Image/icons/record.svg" id="recBtn" alt="Recording">
+            </button>
+            <input type="text" class="finput" id="inp_text" name="inp_text" placeholder="Type a message...">
+            <button type="submit" class="fbutton" id="button">
+              <svg fill="#7b57fa" height="45px" width="45px" viewBox="-49.5 -49.5 594.00 594.00" stroke="#b147fc">
+                <g><path d="M164.711,456.687c...Z"/></g>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="static/scripts/script.js"></script>
+</body>
+</html>
